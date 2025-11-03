@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Draggable } from '@hello-pangea/dnd';
 import type { Task } from '../types';
 import { useKanbanStore } from '../store';
+import { UI_TEXT } from '../constants';
+import { THEME_CLASSES } from '../theme';
 
 interface TaskCardProps {
   task: Task;
@@ -36,8 +38,8 @@ export const TaskCard = ({ task, index }: TaskCardProps) => {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          className={`group bg-white rounded-md shadow-sm border border-[#dfe1e6] p-3 transition-all cursor-pointer hover:bg-[#f4f5f7] ${
-            snapshot.isDragging ? 'shadow-lg rotate-1 ring-2 ring-[#0052cc]' : ''
+          className={`group ${THEME_CLASSES.card.base} p-3 cursor-pointer ${THEME_CLASSES.card.hover} ${
+            snapshot.isDragging ? THEME_CLASSES.card.dragging : ''
           }`}
         >
           {isEditing ? (
@@ -47,14 +49,14 @@ export const TaskCard = ({ task, index }: TaskCardProps) => {
               onChange={(e) => setEditedTitle(e.target.value)}
               onBlur={handleSave}
               onKeyDown={handleKeyDown}
-              className="w-full px-2 py-1 text-sm border border-[#0052cc] rounded focus:outline-none focus:ring-2 focus:ring-[#0052cc] bg-white"
+              className={`${THEME_CLASSES.input.base} ${THEME_CLASSES.background.card}`}
               autoFocus
             />
           ) : (
             <div>
               <div className="flex items-start justify-between gap-2 mb-1">
                 <h3
-                  className="text-sm text-[#172b4d] flex-1 leading-5 hover:underline"
+                  className={`text-sm ${THEME_CLASSES.text.heading} flex-1 leading-5 hover:underline`}
                   onClick={() => setIsEditing(true)}
                 >
                   {task.title}
@@ -64,8 +66,8 @@ export const TaskCard = ({ task, index }: TaskCardProps) => {
                     e.stopPropagation();
                     deleteTask(task.id);
                   }}
-                  className="opacity-0 group-hover:opacity-100 text-[#5e6c84] hover:text-[#de350b] transition-all flex-shrink-0 p-1 rounded hover:bg-[#ebecf0]"
-                  aria-label="Delete task"
+                  className={THEME_CLASSES.deleteButton}
+                  aria-label={UI_TEXT.DELETE_TASK_ARIA}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +84,7 @@ export const TaskCard = ({ task, index }: TaskCardProps) => {
                 </button>
               </div>
               {task.description && (
-                <p className="text-xs text-[#5e6c84] mt-2 leading-relaxed">
+                <p className={`text-xs ${THEME_CLASSES.text.body} mt-2 leading-relaxed`}>
                   {task.description}
                 </p>
               )}

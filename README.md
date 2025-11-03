@@ -59,6 +59,8 @@ src/
 │   ├── Column.tsx         # Individual column (To Do, In Progress, Done)
 │   ├── TaskCard.tsx       # Draggable task card with inline editing
 │   └── AddTask.tsx        # Modal form for creating new tasks
+├── constants.ts           # Centralized UI text and configuration
+├── theme.ts               # Centralized color palette and theme utilities
 ├── store.ts               # Zustand store with persist middleware
 ├── types.ts               # TypeScript interfaces and types
 └── App.tsx                # Root component
@@ -70,6 +72,19 @@ src/
 - Normalized state structure with tasks stored by ID for efficient lookups
 - Columns maintain arrays of task IDs for ordering
 - All state mutations go through Zustand actions (addTask, updateTask, deleteTask, moveTask)
+
+### Styling & Theme
+
+- **Tailwind CSS v4** with `@import "tailwindcss"` syntax
+- **Centralized theme system** (`src/theme.ts`) with modern teal/green color palette
+  - Primary: `rgb(52, 211, 153)` (Teal-400)
+  - Pre-built class strings for consistent UI patterns
+- **Centralized constants** (`src/constants.ts`) for all UI text and configuration
+- Single source of truth for colors and text
+
+### Code Organization
+- All colors defined in `theme.ts` 
+- All UI text in `constants.ts`
 
 
 ## Shortcuts Taken

@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { Task, Column, ColumnId } from './types';
+import { COLUMNS, STORAGE_KEYS } from './constants';
 
 interface KanbanState {
   tasks: Record<string, Task>;
@@ -12,9 +13,9 @@ interface KanbanState {
 }
 
 const initialColumns: Record<ColumnId, Column> = {
-  todo: { id: 'todo', title: 'To Do', taskIds: [] },
-  inProgress: { id: 'inProgress', title: 'In Progress', taskIds: [] },
-  done: { id: 'done', title: 'Done', taskIds: [] },
+  todo: { id: COLUMNS.TODO.id, title: COLUMNS.TODO.title, taskIds: [] },
+  inProgress: { id: COLUMNS.IN_PROGRESS.id, title: COLUMNS.IN_PROGRESS.title, taskIds: [] },
+  done: { id: COLUMNS.DONE.id, title: COLUMNS.DONE.title, taskIds: [] },
 };
 
 export const useKanbanStore = create<KanbanState>()(
@@ -25,7 +26,7 @@ export const useKanbanStore = create<KanbanState>()(
 
       addTask: (title: string, description?: string) => {
         const newTask: Task = {
-          id: `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          id: `task-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`,
           title,
           description,
           columnId: 'todo',
@@ -57,7 +58,7 @@ export const useKanbanStore = create<KanbanState>()(
           const task = state.tasks[id];
           if (!task) return state;
 
-          const { [id]: deletedTask, ...remainingTasks } = state.tasks;
+          const { [id]: _deletedTaskId, ...remainingTasks } = state.tasks;
           const column = state.columns[task.columnId];
 
           return {
@@ -119,7 +120,7 @@ export const useKanbanStore = create<KanbanState>()(
       },
     }),
     {
-      name: 'kanban-storage',
+      name: STORAGE_KEYS.KANBAN_STORAGE,
     }
   )
 );

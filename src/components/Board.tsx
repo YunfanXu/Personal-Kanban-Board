@@ -4,6 +4,8 @@ import { useKanbanStore } from '../store';
 import { Column } from './Column';
 import { AddTask } from './AddTask';
 import type { ColumnId } from '../types';
+import { UI_TEXT } from '../constants';
+import { THEME_CLASSES } from '../theme';
 
 export const Board = () => {
   const { columns, moveTask } = useKanbanStore();
@@ -29,14 +31,13 @@ export const Board = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f4f5f7] p-2">
-      {/* Header */}
-      <div className="bg-white border-b border-gray-200 shadow-sm">
+    <div className={`min-h-screen ${THEME_CLASSES.background.page} p-2`}>
+      <div className={`${THEME_CLASSES.background.card} border ${THEME_CLASSES.border.light} shadow-sm`}>
         <div className="px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-semibold text-[#172b4d]">
-                Personal Kanban Board
+              <h1 className={`text-2xl font-semibold ${THEME_CLASSES.text.heading}`}>
+                {UI_TEXT.BOARD_TITLE}
               </h1>
             </div>
             <AddTask />

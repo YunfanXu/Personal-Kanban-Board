@@ -3,6 +3,8 @@ import { Droppable } from '@hello-pangea/dnd';
 import type { Column as ColumnType } from '../types';
 import { useKanbanStore } from '../store';
 import { TaskCard } from './TaskCard';
+import { UI_TEXT } from '../constants';
+import { THEME_CLASSES, TRANSITIONS } from '../theme';
 
 interface ColumnProps {
   column: ColumnType;
@@ -17,12 +19,12 @@ export const Column = ({ column }: ColumnProps) => {
   );
 
   return (
-    <div className="flex-1 flex-col bg-[#EBECF0] p-2 rounded-md">
+    <div className={`flex-1 flex-col ${THEME_CLASSES.background.column} p-2 rounded-md`}>
       <div className="px-2 py-3 flex items-center justify-between">
-        <h2 className="text-xs font-semibold text-[#5e6c84] uppercase tracking-wide">
+        <h2 className={`text-xs font-semibold ${THEME_CLASSES.text.body} uppercase tracking-wide`}>
           {column.title}
         </h2>
-        <span className="text-xs font-medium text-[#5e6c84] bg-[#dfe1e6] rounded-full px-2 py-0.5">
+        <span className={`text-xs font-medium ${THEME_CLASSES.text.body} ${THEME_CLASSES.badge}`}>
           {tasks.length}
         </span>
       </div>
@@ -32,8 +34,8 @@ export const Column = ({ column }: ColumnProps) => {
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
-            className={`flex-1 px-2 py-1 rounded-sm min-h-[200px] transition-colors ${
-              snapshot.isDraggingOver ? 'bg-[#ebecf0]' : ''
+            className={`flex-1 px-2 py-1 rounded-sm min-h-[200px] ${TRANSITIONS.default} ${
+              snapshot.isDraggingOver ? THEME_CLASSES.background.column : ''
             }`}
           >
             <div className="space-y-2">
@@ -43,8 +45,8 @@ export const Column = ({ column }: ColumnProps) => {
               {provided.placeholder}
             </div>
             {tasks.length === 0 && !snapshot.isDraggingOver && (
-              <div className="text-center text-[#5e6c84] py-8 text-sm">
-                Drop tasks here
+              <div className={`text-center ${THEME_CLASSES.text.body} py-8 text-sm`}>
+                {UI_TEXT.COLUMN_EMPTY_MESSAGE}
               </div>
             )}
           </div>
