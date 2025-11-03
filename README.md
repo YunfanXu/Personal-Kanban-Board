@@ -2,6 +2,15 @@
 
 A single-user Kanban-style task board built with React, TypeScript, and Zustand that persists tasks between reloads.
 
+## Features
+
+- ✅ **Drag & Drop** - Intuitive task movement between columns
+- ✅ **Persistent Storage** - Tasks automatically saved to localStorage
+- ✅ **Inline Editing** - Edit task titles and descriptions directly
+- ✅ **Form Validation** - Required field validation with helpful tooltips
+- ✅ **Responsive Design** - Works on desktop and mobile devices
+- ✅ **Clean Architecture** - Separation of concerns with reusable components
+
 ## Tech Stack
 
 - **React** with TypeScript
@@ -87,6 +96,8 @@ src/
 - All colors defined in `theme.ts` 
 - All UI text in `constants.ts`
 
+## Time spent
+Used around 1 hour
 
 ## Shortcuts Taken
 1.	Zustand Persist – Leveraged automatic localStorage synchronization by wrapping the store with persist(), eliminating boilerplate code.
