@@ -55,10 +55,11 @@ npm run preview
 ```
 src/
 ├── components/
-│   ├── Board.tsx          # Main container with DragDropContext
+│   ├── Board.tsx          # Main container with DragDropContext and dialog state
 │   ├── Column.tsx         # Individual column (To Do, In Progress, Done)
 │   ├── TaskCard.tsx       # Draggable task card with inline editing
-│   └── AddTask.tsx        # Modal form for creating new tasks
+│   ├── AddTask.tsx        # Simple button component to trigger task creation
+│   └── TaskDialog.tsx     # Reusable modal dialog for creating tasks
 ├── constants.ts           # Centralized UI text and configuration
 ├── theme.ts               # Centralized color palette and theme utilities
 ├── store.ts               # Zustand store with persist middleware

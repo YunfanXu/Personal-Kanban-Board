@@ -1,13 +1,16 @@
+import { useState } from 'react';
 import { DragDropContext } from '@hello-pangea/dnd';
 import type { DropResult } from '@hello-pangea/dnd';
 import { useKanbanStore } from '../store';
 import { Column } from './Column';
 import { AddTask } from './AddTask';
+import { TaskDialog } from './TaskDialog';
 import type { ColumnId } from '../types';
 import { UI_TEXT } from '../constants';
 import { THEME_CLASSES } from '../theme';
 
 export const Board = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { columns, moveTask } = useKanbanStore();
 
   const handleDragEnd = (result: DropResult) => {
@@ -40,7 +43,7 @@ export const Board = () => {
                 {UI_TEXT.BOARD_TITLE}
               </h1>
             </div>
-            <AddTask />
+            <AddTask onOpenDialog={() => setIsDialogOpen(true)} />
           </div>
         </div>
       </div>
@@ -54,6 +57,8 @@ export const Board = () => {
           </div>
         </DragDropContext>
       </div>
+
+      <TaskDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} />
     </div>
   );
 };
